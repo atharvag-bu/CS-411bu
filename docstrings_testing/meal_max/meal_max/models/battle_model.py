@@ -13,9 +13,17 @@ configure_logger(logger)
 class BattleModel:
 
     def __init__(self):
+        """Initialize BattleModel with an empty list of combatants""""
         self.combatants: List[Meal] = []
 
     def battle(self) -> str:
+         """Conduct a battle between two combatants and determine the winner.
+        Returns:
+            str: The name of the winning combatant.
+        Raises:
+            ValueError: If there are fewer than two combatants.
+        """
+
         logger.info("Two meals enter, one meal leaves!")
 
         if len(self.combatants) < 2:
@@ -69,10 +77,18 @@ class BattleModel:
         return winner.meal
 
     def clear_combatants(self):
+         """Clears the list of combatants"""
+
         logger.info("Clearing the combatants list.")
         self.combatants.clear()
 
     def get_battle_score(self, combatant: Meal) -> float:
+        """Calculate the battle score for a given combatant.
+        Args:
+            combatant (Meal): The combatant to calculate the score for.
+        Returns:
+            float: The calculated battle score.
+        """
         difficulty_modifier = {"HIGH": 1, "MED": 2, "LOW": 3}
 
         # Log the calculation process
@@ -88,10 +104,20 @@ class BattleModel:
         return score
 
     def get_combatants(self) -> List[Meal]:
+                """Retrieve the current list of combatants.
+        Returns:
+            List[Meal]: The list of current combatants.
+        """
         logger.info("Retrieving current list of combatants.")
         return self.combatants
 
     def prep_combatant(self, combatant_data: Meal):
+        """Prepare a new combatant for the battle.
+        Args:
+            combatant_data (Meal): The combatant to add.
+        Raises:
+            ValueError: If there are already two combatants.
+        """
         if len(self.combatants) >= 2:
             logger.error("Attempted to add combatant '%s' but combatants list is full", combatant_data.meal)
             raise ValueError("Combatant list is full, cannot add more combatants.")
